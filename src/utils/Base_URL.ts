@@ -1,0 +1,1 @@
+export const Base_URL = 'http://mobile-app-dev.piacom.com.vn';
