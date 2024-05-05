@@ -1,5 +1,6 @@
 import signalr from 'react-native-signalr';
-import { useSelector } from 'react-redux'; 
+import { useDispatch, useSelector } from 'react-redux'; 
+import { setAllPumps } from '../redux/pump';
 
 export let connection = signalr.hubConnection(
 "http://dev-egas-s.piacom.com.vn:6969/signalr"

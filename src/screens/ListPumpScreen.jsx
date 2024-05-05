@@ -12,19 +12,13 @@ import PumpData from "../data/PumpData";
 import { COLORS, FONTSIZE } from "../theme/Theme";
 import ButonComfirm from "../components/ButonComfirm";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setListPumps } from "../redux/pump";
-import { proxy } from "../signalr";
 
 const ListPumpScreen = () => {
     const ListPump = PumpData;
-
-
-    proxy.on('ReceivedAllPumpData', data => {
-        console.log('Dữ liệu nhận được từ máy chủ:', data);
-    });
-
-
+    const pumps = useSelector((state) => state.pump.Allpumps)
+    console.log(pumps)
     const [checkedItems, setCheckedItems] = useState([]);
     // console.log(checkedItems)
 

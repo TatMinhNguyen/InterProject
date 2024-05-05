@@ -6,7 +6,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import InfoLogScreen from '../screens/InfoLogScreen';
 import BillScreen from '../screens/BillScreen';
 import PaymentScreen from '../screens/PaymentScreen';
-import { proxy, start } from '../signalr';
+import { start } from '../signalr';
 
 const Stack = createNativeStackNavigator();
 
