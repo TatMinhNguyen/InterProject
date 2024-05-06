@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
     FlatList, 
     StyleSheet, 
@@ -16,18 +16,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { setListPumps } from "../redux/pump";
 
 const ListPumpScreen = () => {
-    const ListPump = PumpData;
-    const pumps = useSelector((state) => state.pump.Allpumps)
-    console.log(pumps)
-    const [checkedItems, setCheckedItems] = useState([]);
-    // console.log(checkedItems)
+    const pumps = useSelector((state) => state.pump.AllPumps)
+    const pumpSelected = useSelector((state) => state.pump.ListPumps)
+    // console.log(pumpSelected)
+    
+    // pumps.forEach(item => {
+    //     console.log(item);
+    //   });
+
+    const [checkedItems, setCheckedItems] = useState(pumpSelected);
+    console.log(checkedItems)
 
     const navigation = useNavigation();
     const dispatch = useDispatch()
 
     const handleComfirm = (data) =>{
         dispatch(setListPumps(data))
-        navigation.navigate('Home', {data: data})
+        navigation.navigate('Home')
     }
 
     const handleCheckboxChange = (id) => {
@@ -44,14 +49,14 @@ const ListPumpScreen = () => {
       <>
         <View style={styles.container}>
             <FlatList
-                data={ListPump}
-                keyExtractor={(item) => item.id.toString()}
+                data={pumps}
+                keyExtractor={(item) => item.PumpId.toString()}
                 renderItem={({ item }) => (
                 <TouchableOpacity
                     style={styles.BoxPump}
                     onPress={() => handleCheckboxChange(item)}
                 >
-                    <Text style={styles.text}>{item.name}</Text>
+                    <Text style={styles.text}>{item.PumpName}</Text>
                     <CheckBox
                         disabled={false}
                         value={checkedItems.includes(item)}

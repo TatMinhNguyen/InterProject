@@ -19,7 +19,7 @@ export const pump = createSlice({
     },
     setClearPump:(state) => {
       state.ListPumps = []
-      state.AllPump = []
+      state.AllPumps = []
     }
   },
 })

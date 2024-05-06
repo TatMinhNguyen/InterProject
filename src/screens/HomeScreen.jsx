@@ -5,13 +5,11 @@ import HeaderBar from '../components/HeaderBar';
 import { COLORS, FONTSIZE } from "../theme/Theme";
 import { LogInfoData } from "../data/LogInfoData";
 import { TotalPrice } from "../utils/TotalPrice";
-import { useSelector } from "react-redux";
-import { proxy } from "../signalr";
+import { useDispatch, useSelector } from "react-redux";
 
-const HomeScreen = ({ route }) => {
+const HomeScreen = () => {
     const ListPumps = useSelector((state) => state.pump.ListPumps)
-    // console.log(ListPumps?.length)
-    const data = route.params;
+    // console.log(ListPumps)
 
     const navigation = useNavigation();
     
@@ -21,13 +19,13 @@ const HomeScreen = ({ route }) => {
     const [selectedItem, setSelectedItem] = useState();
     // console.log(selectedItem)
 
-    const filteredItems = LogInfoData.filter(item => item.pump === selectedItem);
+    const filteredItems = LogInfoData.filter(item => item.pump == selectedItem);
     // console.log(filteredItems)
 
     useEffect(() => {
         if(ListPumps?.length !== 0){
             setFirstItem(ListPumps[0])
-            setSelectedItem(ListPumps[0]?.id)
+            setSelectedItem(ListPumps[0]?.PumpId)
             console.log('length != 0')
         }else{
             navigation.navigate("List-pump")
@@ -50,9 +48,9 @@ const HomeScreen = ({ route }) => {
                 keyExtractor={(item, index) => index.toString()} 
                 renderItem={({ item }) => (
                     <View>
-                        <TouchableWithoutFeedback onPress={() => setSelectedItem(item.id)}>
+                        <TouchableWithoutFeedback onPress={() => setSelectedItem(item.PumpId)}>
                             <View style={[styles.BoxPump]}>
-                                {selectedItem === item.id ? (
+                                {selectedItem === item.PumpId ? (
                                     <Image
                                         source={require('../assests/icons/gas-or.png')}
                                         style={{width:36, height:36}}
@@ -63,11 +61,15 @@ const HomeScreen = ({ route }) => {
                                         style={{width:36, height:36}}
                                     />
                                 )}
-                                <Text style={[styles.text_id, selectedItem === item.id && styles.selectedItem]}>
-                                    {item.id}
+                                <Text style={[
+                                    item.PumpName.split(' ')[2].length === 1 && styles.text_id,
+                                    item.PumpName.split(' ')[2].length === 2 && styles.text_idx,
+                                    selectedItem === item.PumpId && styles.selectedItem,
+                                ]}>
+                                    {item.PumpName.split(' ')[2]}
                                 </Text>
-                                <Text style={[styles.text_type, selectedItem === item.id && styles.selectedItem]}>
-                                    {item.item}
+                                <Text style={[styles.text_type, selectedItem === item.PumpId && styles.selectedItem]}>
+                                    {item.ProductName}
                                 </Text>
                             </View>                            
                         </TouchableWithoutFeedback>
@@ -142,6 +144,13 @@ const styles = StyleSheet.create({
         color: COLORS.primaryOrangeHex
     },
     text_id: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: [{ translateX: 12 }, { translateY: -5 }], 
+        fontWeight:"600"
+    },
+    text_idx: {
         position: 'absolute',
         top: '50%',
         left: '50%',

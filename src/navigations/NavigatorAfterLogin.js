@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import ListPumpScreen from '../screens/ListPumpScreen';
@@ -6,12 +6,25 @@ import ProfileScreen from '../screens/ProfileScreen';
 import InfoLogScreen from '../screens/InfoLogScreen';
 import BillScreen from '../screens/BillScreen';
 import PaymentScreen from '../screens/PaymentScreen';
-import { start } from '../signalr';
+import { proxy, start } from '../signalr';
+import { useDispatch } from 'react-redux';
+import { setAllPumps, setListPumps } from '../redux/pump';
 
 const Stack = createNativeStackNavigator();
 
 const NavigatorAfterLogin = () => {
+  const dispatch = useDispatch();
+
   start();
+
+  proxy.on('ReceivedAllPumpData', data => {
+    dispatch(setAllPumps(data));
+  });
+
+  proxy.on('receivedPumpConfig', data => {
+    dispatch(setListPumps(data))
+  })
+
   return (
     <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='Home'>
         <Stack.Screen name="Home" component={HomeScreen}/>

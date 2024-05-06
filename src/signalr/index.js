@@ -57,5 +57,4 @@ connection.error(error => {
 export const proxy = connection.createHubProxy('stationhub');
 
 proxy.on('ReceivedAllPumpData', data => {
-  console.log('Dữ liệu nhận được từ máy chủ:', data);
 });

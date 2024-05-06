@@ -1,7 +1,7 @@
 export const LogInfoData = [
     {
         id:"01",
-        pump: '01',
+        pump: '41018',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -12,7 +12,7 @@ export const LogInfoData = [
     },
     {
         id:"02",
-        pump: '03',
+        pump: '41021',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -23,7 +23,7 @@ export const LogInfoData = [
     },
     {
         id:"03",
-        pump: '08',
+        pump: '144917',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -34,7 +34,7 @@ export const LogInfoData = [
     },
     {
         id:"04",
-        pump: '04',
+        pump: '41020',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -45,7 +45,7 @@ export const LogInfoData = [
     },
     {
         id:"05",
-        pump: '02',
+        pump: '144916',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -56,7 +56,7 @@ export const LogInfoData = [
     },
     {
         id:"06",
-        pump: '05',
+        pump: '144916',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -67,7 +67,7 @@ export const LogInfoData = [
     },
     {
         id:"07",
-        pump: '07',
+        pump: '144916',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -78,7 +78,7 @@ export const LogInfoData = [
     },
     {
         id:"08",
-        pump: '03',
+        pump: '144916',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -89,7 +89,7 @@ export const LogInfoData = [
     },
     {
         id:"09",
-        pump: '02',
+        pump: '41018',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -100,7 +100,7 @@ export const LogInfoData = [
     },
     {
         id:"10",
-        pump: '02',
+        pump: '41018',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:"1000",
@@ -111,7 +111,7 @@ export const LogInfoData = [
     },
     {
         id:"11",
-        pump: '01',
+        pump: '41018',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:'1000',
@@ -122,7 +122,7 @@ export const LogInfoData = [
     },
     {
         id:"12",
-        pump: '01',
+        pump: '144917',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:'1000',
@@ -133,7 +133,7 @@ export const LogInfoData = [
     },
     {
         id:"13",
-        pump: '01',
+        pump: '144917',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:'1000',
@@ -144,7 +144,7 @@ export const LogInfoData = [
     },
     {
         id:"14",
-        pump: '14',
+        pump: '144917',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:'1000',
@@ -155,228 +155,7 @@ export const LogInfoData = [
     },
     {
         id:"15",
-        pump: '11',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"16",
-        pump: '12',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"17",
-        pump: '03',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"18",
-        pump: '04',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"19",
-        pump: '06',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"20",
-        pump: '05',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-
-    {
-        id:"21",
-        pump: '07',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"22",
-        pump: '10',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"23",
-        pump: '20',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"24",
-        pump: '04',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"25",
-        pump: '06',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"26",
-        pump: '07',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"27",
-        pump: '09',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"28",
-        pump: '10',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"29",
-        pump: '11',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"30",
-        pump: '01',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"31",
-        pump: '01',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"32",
-        pump: '01',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"33",
-        pump: '03',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"34",
-        pump: '03',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"35",
-        pump: '01',
+        pump: '144917',
         code: 'AHC123456',
         item: 'Xăng A95',
         quantity:'1000',
