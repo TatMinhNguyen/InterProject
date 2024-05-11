@@ -26,19 +26,19 @@ const Bill = ({data}) => {
       </View>
       <View style = {styles.right}>
         <Text style = {styles.textRight}>
-            {data.code}
+            {data.ProductCode}
         </Text>
         <Text style = {styles.textRight}>
             {data.item}
         </Text>
         <Text style = {styles.textRight}>
-            {data.quantity}{Constants.liters}
+            {data.Volume}{Constants.liters}
         </Text>
         <Text style = {styles.textRight}>
-            {(Number(data.unit_price)).toLocaleString()} {Constants.currency_unit}
+            {(Number(data.SalePrice)).toLocaleString()} {Constants.currency_unit}
         </Text>
         <Text style = {[styles.textRight , styles.totalText]}>
-            {TotalPrice(data.quantity, data.unit_price).toLocaleString()} {Constants.currency_unit}
+            {(Number(data.Amount)).toLocaleString()} {Constants.currency_unit}
         </Text>
       </View>
     </View>

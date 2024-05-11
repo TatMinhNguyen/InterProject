@@ -8,7 +8,6 @@ import {
     View ,
 } from "react-native";
 import CheckBox from '@react-native-community/checkbox';
-import PumpData from "../data/PumpData";
 import { COLORS, FONTSIZE } from "../theme/Theme";
 import ButonComfirm from "../components/ButonComfirm";
 import { useNavigation } from "@react-navigation/native";
@@ -18,39 +17,40 @@ import { setListPumps } from "../redux/pump";
 const ListPumpScreen = () => {
     const pumps = useSelector((state) => state.pump.AllPumps)
     const pumpSelected = useSelector((state) => state.pump.ListPumps)
-    // console.log(pumpSelected)
+    console.log("1",pumpSelected)
     
-    // pumps.forEach(item => {
-    //     console.log(item);
-    //   });
-
-    const [checkedItems, setCheckedItems] = useState(pumpSelected);
-    console.log(checkedItems)
-
     const navigation = useNavigation();
     const dispatch = useDispatch()
+
+    const [checkedItems, setCheckedItems] = useState(pumpSelected);
+    console.log('2',checkedItems)
+
+    checkedItems.forEach(item => {
+        console.log(item);
+    });
 
     const handleComfirm = (data) =>{
         dispatch(setListPumps(data))
         navigation.navigate('Home')
     }
 
-    const handleCheckboxChange = (id) => {
-        const index = checkedItems.indexOf(id);
+    const handleCheckboxChange = (item) => {
+        const index = checkedItems.indexOf(item);
         if (index === -1) {
-            setCheckedItems([...checkedItems, id]);
+            setCheckedItems([...checkedItems, item]);
         } else {
             const newCheckedItems = [...checkedItems];
             newCheckedItems.splice(index, 1);
             setCheckedItems(newCheckedItems);
         }
-    };  
+    }; 
+    
     return (
       <>
         <View style={styles.container}>
             <FlatList
                 data={pumps}
-                keyExtractor={(item) => item.PumpId.toString()}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
                 <TouchableOpacity
                     style={styles.BoxPump}
@@ -59,7 +59,7 @@ const ListPumpScreen = () => {
                     <Text style={styles.text}>{item.PumpName}</Text>
                     <CheckBox
                         disabled={false}
-                        value={checkedItems.includes(item)}
+                        value={checkedItems.map(item => item.PumpId).includes(item.PumpId)}
                         onValueChange={() => handleCheckboxChange(item)}
                     />
                 </TouchableOpacity>

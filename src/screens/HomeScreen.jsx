@@ -6,6 +6,7 @@ import { COLORS, FONTSIZE } from "../theme/Theme";
 import { LogInfoData } from "../data/LogInfoData";
 import { TotalPrice } from "../utils/TotalPrice";
 import { useDispatch, useSelector } from "react-redux";
+import { proxy } from "../signalr";
 
 const HomeScreen = () => {
     const ListPumps = useSelector((state) => state.pump.ListPumps)
@@ -13,18 +14,41 @@ const HomeScreen = () => {
 
     const navigation = useNavigation();
     
-    const [firstItem, setFirstItem] =useState(null);
-    // console.log(firstItem.id)
+    const [logItem, setLogItem] =useState([]);
+    // console.log("oldPumpId: ", firstItem.PumpId)
 
     const [selectedItem, setSelectedItem] = useState();
-    // console.log(selectedItem)
+    // console.log("newPumpId: ", selectedItem)
 
-    const filteredItems = LogInfoData.filter(item => item.pump == selectedItem);
-    // console.log(filteredItems)
+    let isPumpLogEventRegistered = false;
+
+    const changePumpFocus = (oldPumpId, newPumpId) => {
+        // oldPumpId = selectedItem;
+        // console.log('oldPumpId: ',oldPumpId)
+        setSelectedItem(newPumpId)
+        proxy.invoke('changePumpFocus', oldPumpId, newPumpId)
+            .done(function () {
+                console.log('Successfully changed pump focus');
+            })
+            .fail(function (error) {
+                console.log('Error changing pump focus: ' + error);
+            });
+
+        if (!isPumpLogEventRegistered) {
+            proxy.on("receivedPumpLog", (data) => {
+                // console.log(data)
+                setLogItem(data)
+            });
+            isPumpLogEventRegistered = true;
+        }
+    };
+    // console.log('logitem ',logItem)
+    const filteredItems = logItem.filter(item => item.PumpId == selectedItem);
+    // console.log('firt', filteredItems)
 
     useEffect(() => {
         if(ListPumps?.length !== 0){
-            setFirstItem(ListPumps[0])
+            // setFirstItem(ListPumps[0])
             setSelectedItem(ListPumps[0]?.PumpId)
             console.log('length != 0')
         }else{
@@ -48,7 +72,7 @@ const HomeScreen = () => {
                 keyExtractor={(item, index) => index.toString()} 
                 renderItem={({ item }) => (
                     <View>
-                        <TouchableWithoutFeedback onPress={() => setSelectedItem(item.PumpId)}>
+                        <TouchableWithoutFeedback onPress={() => changePumpFocus( selectedItem, item.PumpId)}>
                             <View style={[styles.BoxPump]}>
                                 {selectedItem === item.PumpId ? (
                                     <Image
@@ -97,14 +121,14 @@ const HomeScreen = () => {
                                     />                                    
                                 </View>
                                 <Text style={styles.datetime}>
-                                    {item.time}
+                                    {item.LogTime}
                                 </Text>
-                                <Text style={styles.datetime}>
+                                {/* <Text style={styles.datetime}>
                                     {item.date}
-                                </Text> 
+                                </Text>  */}
                                 <View style = {styles.borderRight}>
                                     <View style = {styles.boderStatus}>
-                                        {item.status == 0 ? (
+                                        {item.PaymentState == false ? (
                                             <Text style = {styles.textStatusN}>
                                                 Đang chờ xử lý
                                             </Text>
@@ -115,7 +139,7 @@ const HomeScreen = () => {
                                         )}
                                     </View>
                                     <Text style = {styles.textTotal}>
-                                        {TotalPrice(item.quantity , item.unit_price).toLocaleString()}
+                                        {(Number(item.Amount)).toLocaleString()}
                                     </Text>
                                 </View>                               
                             </View>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Base_URL } from "../../utils/Base_URL";
 import { setToken } from "../../redux/auth";
+import { ToastAndroid } from "react-native";
 
 const baseURL = Base_URL;
 
@@ -11,5 +12,10 @@ export const Login = async(user, dispatch) => {
         return res.data.data;
     } catch (error) {
         console.log(error);
+        ToastAndroid.showWithGravity(
+            'Tài khoản hoặc mật khẩu không chính xác',
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
     }
 }
