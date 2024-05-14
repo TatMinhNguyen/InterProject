@@ -17,31 +17,36 @@ import { setListPumps } from "../redux/pump";
 const ListPumpScreen = () => {
     const pumps = useSelector((state) => state.pump.AllPumps)
     const pumpSelected = useSelector((state) => state.pump.ListPumps)
-    console.log("1",pumpSelected)
+    // console.log("1",pumpSelected)
     
     const navigation = useNavigation();
     const dispatch = useDispatch()
 
-    const [checkedItems, setCheckedItems] = useState(pumpSelected);
-    console.log('2',checkedItems)
+    const [checkedItems, setCheckedItems] = useState([]);
+    // console.log('2',checkedItems)
 
-    checkedItems.forEach(item => {
-        console.log(item);
-    });
+    // checkedItems.forEach(item => {
+    //     console.log(item);
+    // });
 
     const handleComfirm = (data) =>{
-        dispatch(setListPumps(data))
+        // dispatch(setListPumps(data))
         navigation.navigate('Home')
     }
 
     const handleCheckboxChange = (item) => {
-        const index = checkedItems.indexOf(item);
+        const index = pumpSelected.indexOf(item);
+        console.log(index)
         if (index === -1) {
-            setCheckedItems([...checkedItems, item]);
+            const newCheckedItems = [...pumpSelected, item];
+            dispatch(setListPumps(newCheckedItems))
+            // setCheckedItems([...checkedItems, item]);
         } else {
-            const newCheckedItems = [...checkedItems];
+            const newCheckedItems = [...pumpSelected];
+            // console.log("new", newCheckedItems)
             newCheckedItems.splice(index, 1);
-            setCheckedItems(newCheckedItems);
+            // setCheckedItems(newCheckedItems);
+            dispatch(setListPumps(newCheckedItems))
         }
     }; 
     
@@ -59,7 +64,7 @@ const ListPumpScreen = () => {
                     <Text style={styles.text}>{item.PumpName}</Text>
                     <CheckBox
                         disabled={false}
-                        value={checkedItems.map(item => item.PumpId).includes(item.PumpId)}
+                        value={pumpSelected.map(item => item.PumpId).includes(item.PumpId)}
                         onValueChange={() => handleCheckboxChange(item)}
                     />
                 </TouchableOpacity>

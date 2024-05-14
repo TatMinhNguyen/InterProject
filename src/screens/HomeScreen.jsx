@@ -3,28 +3,21 @@ import { FlatList, Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFe
 import { useNavigation } from "@react-navigation/native";
 import HeaderBar from '../components/HeaderBar';
 import { COLORS, FONTSIZE } from "../theme/Theme";
-import { LogInfoData } from "../data/LogInfoData";
-import { TotalPrice } from "../utils/TotalPrice";
 import { useDispatch, useSelector } from "react-redux";
 import { proxy } from "../signalr";
 
 const HomeScreen = () => {
     const ListPumps = useSelector((state) => state.pump.ListPumps)
-    // console.log(ListPumps)
 
     const navigation = useNavigation();
     
     const [logItem, setLogItem] =useState([]);
-    // console.log("oldPumpId: ", firstItem.PumpId)
 
     const [selectedItem, setSelectedItem] = useState();
-    // console.log("newPumpId: ", selectedItem)
 
     let isPumpLogEventRegistered = false;
 
     const changePumpFocus = (oldPumpId, newPumpId) => {
-        // oldPumpId = selectedItem;
-        // console.log('oldPumpId: ',oldPumpId)
         setSelectedItem(newPumpId)
         proxy.invoke('changePumpFocus', oldPumpId, newPumpId)
             .done(function () {
@@ -42,13 +35,10 @@ const HomeScreen = () => {
             isPumpLogEventRegistered = true;
         }
     };
-    // console.log('logitem ',logItem)
     const filteredItems = logItem.filter(item => item.PumpId == selectedItem);
-    // console.log('firt', filteredItems)
 
     useEffect(() => {
         if(ListPumps?.length !== 0){
-            // setFirstItem(ListPumps[0])
             setSelectedItem(ListPumps[0]?.PumpId)
             console.log('length != 0')
         }else{
@@ -56,10 +46,6 @@ const HomeScreen = () => {
             console.log('length == 0')
         }
     },[ListPumps?.length])
-
-    // useEffect(() => {
-    //     setSelectedItem(firstItem.id)
-    // },[firstItem])
 
     const handleInfoLog = (data) => {
         navigation.navigate('InfoLog', { data: data });
