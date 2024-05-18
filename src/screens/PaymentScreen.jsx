@@ -13,7 +13,7 @@ import { Constants } from '../constants/Constants';
 const PaymentScreen = ({ route }) => {
     const data = route.params;
     // console.log(data)
-    const paymentInfo = PaymentCode; 
+    // const paymentInfo = PaymentCode; 
 
     const [isCheck,setIsCheck] = useState(false);
 
@@ -32,7 +32,7 @@ const PaymentScreen = ({ route }) => {
           </View>        
           <View style = {styles.QRCode}>
             <QRCode
-              value={paymentInfo}
+              value={data.QrContent}
               size={0.3 * Dimensions.get('window').height}
             />          
           </View>

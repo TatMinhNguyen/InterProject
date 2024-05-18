@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Constants } from '../constants/Constants'
 import { COLORS, FONTSIZE } from '../theme/Theme'
-import { TotalPrice } from '../utils/TotalPrice'
+import { TotalPrice, formatAmount } from '../utils/TotalPrice'
 import { ownerBank } from '../data/PaymentCode'
 
 const PaymentInfo = ({data}) => {
@@ -36,10 +36,10 @@ const PaymentInfo = ({data}) => {
             {ownerBank.bank_account_owner}
         </Text>
         <Text style = {[styles.textRight , styles.totalText]}>
-            {TotalPrice(data.quantity, data.unit_price).toLocaleString()} {Constants.currency_unit}
+            {formatAmount(data.Amount)} {Constants.currency_unit}
         </Text>        
         <Text style = {styles.textRight}>
-            {data.code}
+            {data.TxnId}
         </Text>
       </View>
     </View>

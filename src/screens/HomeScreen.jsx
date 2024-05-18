@@ -5,6 +5,8 @@ import HeaderBar from '../components/HeaderBar';
 import { COLORS, FONTSIZE } from "../theme/Theme";
 import { useDispatch, useSelector } from "react-redux";
 import { proxy } from "../signalr";
+import { formatAmount } from "../utils/TotalPrice";
+import { Constants } from "../constants/Constants";
 
 const HomeScreen = () => {
     const ListPumps = useSelector((state) => state.pump.ListPumps)
@@ -125,7 +127,7 @@ const HomeScreen = () => {
                                         )}
                                     </View>
                                     <Text style = {styles.textTotal}>
-                                        {(Number(item.Amount)).toLocaleString()}
+                                        {(formatAmount(item.Amount))} {Constants.currency_unit}
                                     </Text>
                                 </View>                               
                             </View>
@@ -195,19 +197,22 @@ const styles = StyleSheet.create({
     },
     borderRight:{
         marginLeft:"auto",
-        marginRight: 10
+        marginRight: 10,
+        // backgroundColor:"#ccc"
     },
     boderStatus:{
         padding:3,
-        paddingLeft:10,
-        paddingRight:10,
+        // paddingLeft:"auto",
+        // paddingRight: "auto",
         borderWidth:1,
         borderColor: COLORS.primaryBlackRGBA,
         borderRadius: 7
     },
     textStatusN:{
         color: COLORS.primaryBlackHex,
-        fontSize: FONTSIZE.size_12
+        fontSize: FONTSIZE.size_12,
+        // marginRight: 20,
+        marginLeft: "auto"
     },
     textStatusY:{
         // paddingBottom:5,
