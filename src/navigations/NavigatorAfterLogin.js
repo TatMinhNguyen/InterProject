@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import ListPumpScreen from '../screens/ListPumpScreen';
@@ -9,6 +9,7 @@ import PaymentScreen from '../screens/PaymentScreen';
 import { proxy, start } from '../signalr';
 import { useDispatch } from 'react-redux';
 import { setAllPumps, setListPumps } from '../redux/pump';
+import { setAccountBank } from '../redux/bank';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,11 @@ const NavigatorAfterLogin = () => {
 
   proxy.on('receivedPumpConfig', data => {
     dispatch(setListPumps(data))
+  })
+
+  proxy.on('ReceivedStationInfo', data => {
+    // console.log(data)
+    dispatch(setAccountBank(data))
   })
 
   return (

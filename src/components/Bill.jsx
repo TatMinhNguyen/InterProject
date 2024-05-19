@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Constants } from '../constants/Constants'
-import { TotalPrice } from '../utils/TotalPrice'
+import { TotalPrice, formatAmount } from '../utils/TotalPrice'
 import { COLORS, FONTSIZE } from '../theme/Theme'
 
 const Bill = ({data}) => {
@@ -35,10 +35,10 @@ const Bill = ({data}) => {
             {data.Volume}{Constants.liters}
         </Text>
         <Text style = {styles.textRight}>
-            {(Number(data.SalePrice)).toLocaleString()} {Constants.currency_unit}
+            {(formatAmount(data.SalePrice))} {Constants.currency_unit}
         </Text>
         <Text style = {[styles.textRight , styles.totalText]}>
-            {(Number(data.Amount)).toLocaleString()} {Constants.currency_unit}
+            {(formatAmount(data.Amount))} {Constants.currency_unit}
         </Text>
       </View>
     </View>

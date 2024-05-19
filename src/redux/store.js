@@ -4,17 +4,19 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from '@react-native-async-storage/async-storage';
 import authReducer from './auth/index'
 import pumpReducer from './pump/index'
+import bankReducer from './bank/index'
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: ['auth', 'pump']
+  whitelist: ['auth', 'pump', 'bank']
 }
 
 const rootReducer = combineReducers({ 
   auth: authReducer, 
   pump: pumpReducer,
+  bank: bankReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

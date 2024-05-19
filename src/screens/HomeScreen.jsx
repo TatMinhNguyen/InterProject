@@ -103,8 +103,9 @@ const HomeScreen = () => {
                                     <Image
                                         source={require('../assests/icons/bill-black.png')}
                                         style={{
-                                            width:30,
-                                            height:30
+                                            width:31,
+                                            height:30,
+                                            marginTop: 2
                                         }}
                                     />                                    
                                 </View>
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     },
     BoxPump: {
       padding:10,
-      paddingBottom: 10,
+      paddingBottom: 20,
       paddingLeft: 20,
       paddingRight: 20,
       position: 'relative',
@@ -175,15 +176,15 @@ const styles = StyleSheet.create({
         fontWeight:"600",
     }  ,
     LogContainer:{
-        paddingTop: 15,
-        paddingBottom:10,
+        paddingTop: 7,
+        paddingBottom: 7,
         paddingLeft: 15,
         flexDirection:"row",
         borderTopWidth: 1.1,
         borderTopColor: COLORS.secondaryBlackRGBA
     }   ,
     bill:{
-        padding: 6,
+        padding: 5,
         borderWidth: 1.1,
         borderColor:COLORS.secondaryBlackRGBA,
         borderRadius: 10
@@ -201,14 +202,15 @@ const styles = StyleSheet.create({
         // backgroundColor:"#ccc"
     },
     boderStatus:{
-        padding:3,
-        // paddingLeft:"auto",
-        // paddingRight: "auto",
-        borderWidth:1,
-        borderColor: COLORS.primaryBlackRGBA,
-        borderRadius: 7
+        // marginBottom:2,
+        padding:3,    
     },
     textStatusN:{
+        paddingLeft: 7,
+        paddingRight:7,
+        borderWidth:1,
+        borderColor: COLORS.primaryBlackRGBA,
+        borderRadius: 7,
         color: COLORS.primaryBlackHex,
         fontSize: FONTSIZE.size_12,
         // marginRight: 20,
