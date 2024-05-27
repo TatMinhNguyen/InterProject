@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Text, Dimensions } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { useNavigation } from "@react-navigation/native";
@@ -9,18 +9,59 @@ import ButonComfirm from '../components/ButonComfirm';
 import PaymentInfo from '../components/PaymentInfo';
 import { COLORS, FONTSIZE } from '../theme/Theme';
 import { Constants } from '../constants/Constants';
+import moment from 'moment';
+import { proxy } from '../signalr';
 
 const PaymentScreen = ({ route }) => {
     const data = route.params;
     // console.log(data)
     // const paymentInfo = PaymentCode; 
 
-    const [isCheck,setIsCheck] = useState(false);
-
     const navigation = useNavigation();
 
+    const [isCheck,setIsCheck] = useState(false);
+
+    const [currentTime, setCurrentTime] = useState('');
+    const [currentTimeRequest, setCurrentTimeRequest] = useState('');
+    // console.log(currentTime)
+    // console.log(currentTimeRequest)
+  
+    const getCurrentFormattedTime = () => {
+      return moment().format('DDMMYYYYHHmmssSSS');
+    };
+  
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCurrentTimeRequest(getCurrentFormattedTime());
+      }, 1000); // Cập nhật mỗi giây
+  
+      return () => clearInterval(interval); // Clear interval khi component unmount
+    }, []);
+  
+    useEffect(() => {
+      const interval = setInterval(() => {
+        const now = new Date();
+        setCurrentTime(now.toLocaleTimeString());
+      }, 1000); // Cập nhật mỗi giây
+  
+      return () => clearInterval(interval); // Clear interval khi component unmount
+    }, []);
+
     const handleComfirm = (data) => {
-      navigation.navigate("Bill", {data: data})
+      proxy
+        .invoke("sendConfirmPayment", data.TxnId, {
+          PaymentAmount: data.Amount,
+          PaymentRequestId: currentTimeRequest,
+          PaymentType: 3,
+          PaymentDate: currentTime,
+        })
+        .done(() => {
+          navigation.navigate("Bill", {data: data})
+          console.log('Successfully confirm payment');
+        })
+        .fail((e) => {
+          console.log('Error confirm payment: ' + e)
+        });
     }
   
     return (
@@ -46,7 +87,7 @@ const PaymentScreen = ({ route }) => {
                 {Constants.note2}  
               </Text>           
             </View>            
-              <TouchableWithoutFeedback onPress={() =>handleComfirm(data)}>
+              <TouchableWithoutFeedback onPress={() =>handleComfirm(data.data)}>
                 <View style={styles.buton}>
                   <ButonComfirm buttonText="Kiểm tra kết quả thanh toán"/>
                 </View>                

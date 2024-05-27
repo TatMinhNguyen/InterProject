@@ -5,6 +5,7 @@ import { TotalPrice, formatAmount } from '../utils/TotalPrice'
 import { COLORS, FONTSIZE } from '../theme/Theme'
 
 const Bill = ({data}) => {
+    // console.log(data.ProductCode)
   return (
     <View style = {styles.container}>
       <View style = {styles.left}>

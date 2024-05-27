@@ -50,8 +50,14 @@ const HomeScreen = () => {
     },[ListPumps?.length])
 
     const handleInfoLog = (data) => {
-        navigation.navigate('InfoLog', { data: data });
+        if(data.PaymentState == false){
+            navigation.navigate('InfoLog', { data: data });
+        }
+        else {
+            navigation.navigate("Bill", {data: data})
+        }
     }
+
     return (
         <View style={styles.container}>
             <HeaderBar />
@@ -217,9 +223,15 @@ const styles = StyleSheet.create({
         marginLeft: "auto"
     },
     textStatusY:{
-        // paddingBottom:5,
+        paddingLeft: 7,
+        paddingRight:7,
+        borderWidth:1,
+        borderColor: COLORS.primaryBlackRGBA,
+        borderRadius: 7,
         color: COLORS.primarygreenHex,
-        fontSize: FONTSIZE.size_12
+        fontSize: FONTSIZE.size_12,
+        // marginRight: 20,
+        marginLeft: "auto"
     },
     textTotal:{
         // paddingTop:5,

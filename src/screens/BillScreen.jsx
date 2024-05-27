@@ -8,7 +8,7 @@ import { ComeBackHome } from '../utils/ComeBackHome';
 
 const BillScreen = ({ route }) => {
     const data = route.params;
-
+    console.log(data.data)
     return (
       <View style = {styles.container}>
         <View style = {styles.header}>
@@ -27,12 +27,12 @@ const BillScreen = ({ route }) => {
                     style={{width: 35, height: 35}}
                 />
                 <Text style = {styles.textBody}>
-                Hóa đơn
+                    Hóa đơn
                 </Text>
             </View>
             <View>
                 <Bill
-                    data = {data.data.data}
+                    data = {data.data}
                 /> 
                 <Text style = {styles.textBodyBottom}>
                     Đã thanh toán

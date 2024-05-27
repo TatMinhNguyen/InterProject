@@ -1,22 +1,67 @@
 import { Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RadioButton } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
+import moment from 'moment';
 import { COLORS, FONTSIZE } from '../theme/Theme'
 import Bill from '../components/Bill'
 import ButonComfirm from '../components/ButonComfirm';
 import ButonDeny from '../components/ButonDeny';
 import { ComeBackHome } from '../utils/ComeBackHome';
+import { proxy } from '../signalr';
 
 const InfoLogScreen = ({ route }) => {
   const data = route.params;
+  // console.log(data.data)
 
   const [checked, setChecked] = useState('first');
 
   const navigation = useNavigation();
 
+  const [currentTime, setCurrentTime] = useState('');
+  const [currentTimeRequest, setCurrentTimeRequest] = useState('');
+  // console.log(currentTime)
+  // console.log(currentTimeRequest)
+
+  const getCurrentFormattedTime = () => {
+    return moment().format('DDMMYYYYHHmmssSSS');
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTimeRequest(getCurrentFormattedTime());
+    }, 1000); // Cập nhật mỗi giây
+
+    return () => clearInterval(interval); // Clear interval khi component unmount
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleTimeString());
+    }, 1000); // Cập nhật mỗi giây
+
+    return () => clearInterval(interval); // Clear interval khi component unmount
+  }, []);
+
+
+
   const handleComfirm = (data) => {
-    navigation.navigate("Bill", {data: data})
+      proxy
+        .invoke("sendConfirmPayment", data.TxnId, {
+          PaymentAmount: data.Amount,
+          PaymentRequestId: currentTimeRequest,
+          PaymentType: 1,
+          PaymentDate: currentTime,
+        })
+        .done(() => {
+          navigation.navigate("Bill", {data: data})
+          console.log('Successfully confirm payment');
+        })
+        .fail((e) => {
+          console.log('Error confirm payment: ' + e)
+        });
+    
   }
 
   const handlePayment = (data) => {
@@ -72,7 +117,7 @@ const InfoLogScreen = ({ route }) => {
       </View>
       <View style = {styles.footer}>
         {checked === 'first' ? (
-          <TouchableWithoutFeedback onPress={() =>handleComfirm(data)}>
+          <TouchableWithoutFeedback onPress={() =>handleComfirm(data.data)}>
             <View style={styles.buton}>
               <ButonComfirm buttonText="Xác nhận thanh toán"/>
             </View>                
