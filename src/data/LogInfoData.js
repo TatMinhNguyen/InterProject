@@ -1,167 +1,42 @@
-export const LogInfoData = [
+export const DataMT = [
     {
-        id:"01",
-        pump: '41018',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 1
+        "plxId": null,
+        "tel": null,
+        "name": "Công ty TNHH Thương Mại và Dịch Vụ Quang Trung",
+        "address": "Số 7 Chùa Bộc- P. Quang Trung - Q. Đống Đa-TP Hà Nội",
+        "email": null,
+        "mst": ".0100364723"
     },
     {
-        id:"02",
-        pump: '41021',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
+        "plxId": null,
+        "tel": null,
+        "name": "CN Cty TNHH MTV thoát nước Hà Nội - Xí nghiệp thoát nước số 6",
+        "address": "Tổ 20 Phường Láng Thượng - Q. Đống Đa - TP. Hà Nội",
+        "email": null,
+        "mst": ".0100105704-001"
     },
     {
-        id:"03",
-        pump: '144917',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
+        "plxId": null,
+        "tel": null,
+        "name": "Công Ty TNHH Một Thành Viên Nước Sạch Hà Nội",
+        "address": "Số 44 Yên Phụ,P.Trúc Bạch,Q.Ba Đình,TP Hà Nội",
+        "email": null,
+        "mst": "...0100106225"
     },
     {
-        id:"04",
-        pump: '41020',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
+        "plxId": null,
+        "tel": null,
+        "name": "Công Ty Lưới Điện Cao Thế TP Hà Nội-TCT Điện Lực TP Hà Nội",
+        "address": "Tổ 50,Phường yên Hòa,Quận Cầu giấy,TP.Hà Nội, VN",
+        "email": "tuyetmainguyen1611@gmail.com",
+        "mst": ".0100101114"
     },
     {
-        id:"05",
-        pump: '144916',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"06",
-        pump: '144916',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"07",
-        pump: '144916',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"08",
-        pump: '144916',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"09",
-        pump: '41018',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"10",
-        pump: '41018',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:"1000",
-        unit_price: "20000",
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"11",
-        pump: '41018',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"12",
-        pump: '144917',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"13",
-        pump: '144917',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"14",
-        pump: '144917',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
-    {
-        id:"15",
-        pump: '144917',
-        code: 'AHC123456',
-        item: 'Xăng A95',
-        quantity:'1000',
-        unit_price: '20000',
-        date: "07/04/2004",
-        time: "20:58",
-        status: 0
-    },
+        "plxId": null,
+        "tel": null,
+        "name": "Công Ty TNHH Hoàn Mỹ",
+        "address": "Tầng 6 Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội",
+        "email": null,
+        "mst": ".0100364307"
+    }
 ]

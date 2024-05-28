@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Text, Dimensions } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { useNavigation } from "@react-navigation/native";
-import { PaymentCode } from '../data/PaymentCode';
 import ComeBack from '../components/ComeBack';
-import { ComeBackHome } from '../utils/ComeBackHome';
+import { ComeBackHome, goBack } from '../utils/ComeBackHome';
 import ButonComfirm from '../components/ButonComfirm';
 import PaymentInfo from '../components/PaymentInfo';
 import { COLORS, FONTSIZE } from '../theme/Theme';
@@ -66,7 +65,7 @@ const PaymentScreen = ({ route }) => {
   
     return (
       <View style={styles.container}>
-        <ComeBack comeback={ComeBackHome}/>
+        <ComeBack comeback={goBack}/>
         <View style = {styles.body}>
           <View>
             <PaymentInfo data = {data.data}/>

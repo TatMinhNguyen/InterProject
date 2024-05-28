@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { proxy } from "../signalr";
 import { formatAmount } from "../utils/TotalPrice";
 import { Constants } from "../constants/Constants";
+import moment from "moment";
 
 const HomeScreen = () => {
     const ListPumps = useSelector((state) => state.pump.ListPumps)
@@ -14,10 +15,17 @@ const HomeScreen = () => {
     const navigation = useNavigation();
     
     const [logItem, setLogItem] =useState([]);
-
     const [selectedItem, setSelectedItem] = useState();
 
     let isPumpLogEventRegistered = false;
+
+    const getDate = (dateTimeString) =>{
+        return moment(dateTimeString).format('YYYY-MM-DD');
+    }
+
+    const getTime = (dateTimeString) =>{
+        return moment(dateTimeString).format('HH:mm:ss');
+    }
 
     const changePumpFocus = (oldPumpId, newPumpId) => {
         setSelectedItem(newPumpId)
@@ -116,25 +124,28 @@ const HomeScreen = () => {
                                     />                                    
                                 </View>
                                 <Text style={styles.datetime}>
-                                    {item.LogTime}
+                                    {getTime(item.LogTime)}
                                 </Text>
-                                {/* <Text style={styles.datetime}>
-                                    {item.date}
-                                </Text>  */}
+                                <Text style={styles.datetime}>
+                                    {getDate(item.LogTime)}
+                                </Text> 
                                 <View style = {styles.borderRight}>
                                     <View style = {styles.boderStatus}>
                                         {item.PaymentState == false ? (
-                                            <Text style = {styles.textStatusN}>
-                                                Đang chờ xử lý
-                                            </Text>
+                                            <View style = {styles.StatusN}>
+                                            </View>
+                                        ) : item.PaymentState == true && item.ReceiptExportStatus == false ? 
+                                        (
+                                            <View style = {styles.StatusY}>
+                                            </View>
                                         ) : (
-                                            <Text style = {styles.textStatusY}>
-                                                Đã thanh toán
-                                            </Text>
+                                            <View style = {styles.StatusZ}>
+                                            </View>
                                         )}
                                     </View>
                                     <Text style = {styles.textTotal}>
-                                        {(formatAmount(item.Amount))} {Constants.currency_unit}
+                                        {(formatAmount(item.Amount))} 
+                                        {/* {Constants.currency_unit} */}
                                     </Text>
                                 </View>                               
                             </View>
@@ -211,26 +222,22 @@ const styles = StyleSheet.create({
         // marginBottom:2,
         padding:3,    
     },
-    textStatusN:{
-        paddingLeft: 7,
-        paddingRight:7,
-        borderWidth:1,
-        borderColor: COLORS.primaryBlackRGBA,
-        borderRadius: 7,
-        color: COLORS.primaryBlackHex,
-        fontSize: FONTSIZE.size_12,
-        // marginRight: 20,
+    StatusN:{
+        width:40,
+        height:10,
+        backgroundColor: COLORS.primaryRedHex,
         marginLeft: "auto"
     },
-    textStatusY:{
-        paddingLeft: 7,
-        paddingRight:7,
-        borderWidth:1,
-        borderColor: COLORS.primaryBlackRGBA,
-        borderRadius: 7,
-        color: COLORS.primarygreenHex,
-        fontSize: FONTSIZE.size_12,
-        // marginRight: 20,
+    StatusZ:{
+        width:40,
+        height:10,
+        backgroundColor: COLORS.primarygreenHex,
+        marginLeft: "auto"
+    },
+    StatusY:{
+        width:40,
+        height:10,
+        backgroundColor: COLORS.primaryyellowHex,
         marginLeft: "auto"
     },
     textTotal:{

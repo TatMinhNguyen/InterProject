@@ -5,10 +5,17 @@ import Bill from '../components/Bill';
 import ButonComfirm from '../components/ButonComfirm';
 import ButonDeny from '../components/ButonDeny';
 import { ComeBackHome } from '../utils/ComeBackHome';
+import { useNavigation } from '@react-navigation/native';
 
 const BillScreen = ({ route }) => {
     const data = route.params;
-    console.log(data.data)
+
+    const navigation = useNavigation();
+
+    const handleExport = () =>{
+        navigation.navigate('Export')
+    }
+
     return (
       <View style = {styles.container}>
         <View style = {styles.header}>
@@ -40,7 +47,7 @@ const BillScreen = ({ route }) => {
             </View>            
         </View>
         <View style = {styles.footer}>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={handleExport}>
                 <View style={styles.buton}>
                     <ButonComfirm buttonText = "Xuất hóa đơn"/>
                 </View>                

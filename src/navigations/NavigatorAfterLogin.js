@@ -10,6 +10,7 @@ import { proxy, start } from '../signalr';
 import { useDispatch } from 'react-redux';
 import { setAllPumps, setListPumps } from '../redux/pump';
 import { setAccountBank } from '../redux/bank';
+import ExportBill from '../screens/ExportBill';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,7 @@ const NavigatorAfterLogin = () => {
         <Stack.Screen name="InfoLog" component={InfoLogScreen} />
         <Stack.Screen name="Bill" component={BillScreen} />
         <Stack.Screen name="Payment" component={PaymentScreen} />
+        <Stack.Screen name="Export" component={ExportBill} />
     </Stack.Navigator>
   )
 }

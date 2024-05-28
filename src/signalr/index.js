@@ -1,6 +1,5 @@
 import signalr from 'react-native-signalr';
-import { useDispatch, useSelector } from 'react-redux'; 
-import { setAllPumps } from '../redux/pump';
+import { useSelector } from 'react-redux'; 
 
 export let connection = signalr.hubConnection(
 "http://dev-egas-s.piacom.com.vn:6969/signalr"
@@ -15,6 +14,7 @@ connection.connectionSlow(() => {
 
 export const start = async () => {   
     const accessToken = useSelector((state) =>state.auth.token)
+    // console.log(accessToken)
     connection.qs = {accessToken: accessToken};
     connection
       .start({transport: 'webSockets'})
