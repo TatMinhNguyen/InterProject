@@ -12,8 +12,8 @@ const BillScreen = ({ route }) => {
 
     const navigation = useNavigation();
 
-    const handleExport = () =>{
-        navigation.navigate('Export')
+    const handleExport = (data) =>{
+        navigation.navigate('Export', {data: data})
     }
 
     return (
@@ -47,7 +47,7 @@ const BillScreen = ({ route }) => {
             </View>            
         </View>
         <View style = {styles.footer}>
-            <TouchableWithoutFeedback onPress={handleExport}>
+            <TouchableWithoutFeedback onPress={()=>handleExport(data)}>
                 <View style={styles.buton}>
                     <ButonComfirm buttonText = "Xuất hóa đơn"/>
                 </View>                

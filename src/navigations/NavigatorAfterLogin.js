@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { setAllPumps, setListPumps } from '../redux/pump';
 import { setAccountBank } from '../redux/bank';
 import ExportBill from '../screens/ExportBill';
+import ConfirmExport from '../screens/ConfirmExport';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,7 @@ const NavigatorAfterLogin = () => {
         <Stack.Screen name="Bill" component={BillScreen} />
         <Stack.Screen name="Payment" component={PaymentScreen} />
         <Stack.Screen name="Export" component={ExportBill} />
+        <Stack.Screen name="Confirm-Export" component={ConfirmExport} />
     </Stack.Navigator>
   )
 }
