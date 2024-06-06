@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import ListPumpScreen from '../screens/ListPumpScreen';
@@ -18,7 +18,16 @@ const Stack = createNativeStackNavigator();
 const NavigatorAfterLogin = () => {
   const dispatch = useDispatch();
 
-  start();
+  useEffect(() => {
+    const fetchData = async () => {
+      await start();
+    };
+    
+    fetchData();
+  }, []);
+
+  // start()
+  
 
   proxy.on('ReceivedAllPumpData', data => {
     dispatch(setAllPumps(data));

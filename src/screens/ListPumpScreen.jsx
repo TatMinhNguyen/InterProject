@@ -13,73 +13,70 @@ import ButonComfirm from "../components/ButonComfirm";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { setListPumps } from "../redux/pump";
+import { proxy } from "../signalr";
 
 const ListPumpScreen = () => {
-    const pumps = useSelector((state) => state.pump.AllPumps)
-    const pumpSelected = useSelector((state) => state.pump.ListPumps)
-    // console.log("1",pumpSelected)
+    const pumps = useSelector((state) => state.pump.AllPumps);
+    const pumpSelected = useSelector((state) => state.pump.ListPumps);
+    // console.log(pumpSelected)
     
     const navigation = useNavigation();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const [checkedItems, setCheckedItems] = useState([]);
-    // console.log('2',checkedItems)
+    const [checkedItems, setCheckedItems] = useState(pumpSelected);
 
-    // checkedItems.forEach(item => {
-    //     console.log(item);
-    // });
+    useEffect(() => {
+        setCheckedItems(pumpSelected);
+    }, [pumpSelected]);
 
-    const handleComfirm = (data) =>{
-        // dispatch(setListPumps(data))
-        navigation.navigate('Home')
-    }
+    const handleComfirm = (data) => {
+        proxy.invoke("UpdatePumpConfig", data);
+        navigation.navigate('Home');
+    };
 
     const handleCheckboxChange = (item) => {
-        const index = pumpSelected.indexOf(item);
-        console.log(index)
-        if (index === -1) {
-            const newCheckedItems = [...pumpSelected, item];
-            dispatch(setListPumps(newCheckedItems))
-            // setCheckedItems([...checkedItems, item]);
-        } else {
-            const newCheckedItems = [...pumpSelected];
-            // console.log("new", newCheckedItems)
-            newCheckedItems.splice(index, 1);
-            // setCheckedItems(newCheckedItems);
-            dispatch(setListPumps(newCheckedItems))
-        }
-    }; 
-    
-    return (
-      <>
-        <View style={styles.container}>
-            <FlatList
-                data={pumps}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                <TouchableOpacity
-                    style={styles.BoxPump}
-                    onPress={() => handleCheckboxChange(item)}
-                >
-                    <Text style={styles.text}>{item.PumpName}</Text>
-                    <CheckBox
-                        disabled={false}
-                        value={pumpSelected.map(item => item.PumpId).includes(item.PumpId)}
-                        onValueChange={() => handleCheckboxChange(item)}
-                    />
-                </TouchableOpacity>
-                )}
-            />
-        </View> 
-        <View style={styles.bottom}>
-            <TouchableWithoutFeedback onPress={() => handleComfirm(checkedItems)}>
-                <View style={styles.buton}>
-                    <ButonComfirm buttonText="Xác nhận"/>
-                </View>                
-            </TouchableWithoutFeedback>
-        </View>      
-      </>
+        const index = checkedItems.findIndex(i => i.PumpId === item.PumpId);
+        let newCheckedItems = [...checkedItems];
 
+        if (index === -1) {
+            newCheckedItems.push(item);
+        } else {
+            newCheckedItems.splice(index, 1);
+        }
+
+        setCheckedItems(newCheckedItems);
+        dispatch(setListPumps(newCheckedItems));
+    }; 
+
+    return (
+        <>
+            <View style={styles.container}>
+                <FlatList
+                    data={pumps}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            style={styles.BoxPump}
+                            onPress={() => handleCheckboxChange(item)}
+                        >
+                            <Text style={styles.text}>{item.PumpName}</Text>
+                            <CheckBox
+                                disabled={false}
+                                value={checkedItems.some(checkedItem => checkedItem.PumpId === item.PumpId)}
+                                onValueChange={() => handleCheckboxChange(item)}
+                            />
+                        </TouchableOpacity>
+                    )}
+                />
+            </View> 
+            <View style={styles.bottom}>
+                <TouchableWithoutFeedback onPress={() => handleComfirm(checkedItems)}>
+                    <View style={styles.buton}>
+                        <ButonComfirm buttonText="Xác nhận"/>
+                    </View>                
+                </TouchableWithoutFeedback>
+            </View>      
+        </>
     );
 }
 
