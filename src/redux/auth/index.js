@@ -11,20 +11,25 @@ export const auth = createSlice({
   name: 'auth',
   initialState: INIT,
   reducers: {
+    setLogin: (state, action) => {
+      state.login.currentUser = action.payload;
+      return state;
+    },
     setToken: (state,action) => {
       state.token = action.payload;
       return state;
     },
     clearToken: (state) => {
       state.token = null;
-      // return state;
+      state.login.currentUser = null
     },
   },
 })
 
 export const { 
   setToken,
-  clearToken
+  clearToken,
+  setLogin
 } = auth.actions
 
 export default auth.reducer

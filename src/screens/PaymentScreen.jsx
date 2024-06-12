@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     },
     buton:{
       marginTop:"6%",
-      width:"75%",
+      width:"77%",
       height:"auto"
     },
     footer:{

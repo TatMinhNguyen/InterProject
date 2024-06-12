@@ -47,6 +47,7 @@ interface Color {
     secondaryBlackRGBA: string;
     primarygreenHex: string;
     primaryyellowHex: string;
+    primaryBlueHex: string;
 }
   
 export const COLORS: Color = {
@@ -63,7 +64,8 @@ export const COLORS: Color = {
     primaryBlackRGBA: '#ddd',
     secondaryBlackRGBA: '#E1E1E1',
     primarygreenHex: '#32BEA6',
-    primaryyellowHex: '#FCC419'
+    primaryyellowHex: '#FCC419',
+    primaryBlueHex: '#339AF0'
 };
   
 interface FontFamily {

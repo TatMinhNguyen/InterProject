@@ -18,15 +18,15 @@ const Stack = createNativeStackNavigator();
 const NavigatorAfterLogin = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await start();
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await start();
+  //   };
     
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  // start()
+  start()
   
 
   proxy.on('ReceivedAllPumpData', data => {

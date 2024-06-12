@@ -5,10 +5,12 @@ import Bill from '../components/Bill';
 import ButonComfirm from '../components/ButonComfirm';
 import ButonDeny from '../components/ButonDeny';
 import { ComeBackHome } from '../utils/ComeBackHome';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-const BillScreen = ({ route }) => {
-    const data = route.params;
+const BillScreen = () => {
+    const route = useRoute();
+    const { data, pumpName } = route.params;
+    console.log(pumpName)
 
     const navigation = useNavigation();
 
@@ -39,7 +41,8 @@ const BillScreen = ({ route }) => {
             </View>
             <View>
                 <Bill
-                    data = {data.data}
+                    data = {data}
+                    pumpName = {pumpName}
                 /> 
                 <Text style = {styles.textBodyBottom}>
                     Đã thanh toán

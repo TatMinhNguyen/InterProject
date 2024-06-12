@@ -47,6 +47,8 @@ const ExportBill = ({ route }) => {
                         placeholderTextColor="#666"
                         value={search}
                         onChangeText={setSearch}
+                        onSubmitEditing={handleSearch} // Gọi API khi nhấn nút "OK"
+                        returnKeyType="search" // Thay đổi phím "Return" trên bàn phím thành "Search"
                     />                    
                 </View>
                 <TouchableWithoutFeedback onPress={handleSearch}>
@@ -88,6 +90,7 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     input: {
+        color: COLORS.primaryBlackHex,
         width: '100%',
         height: 40,
         borderWidth: 1,

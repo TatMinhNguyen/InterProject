@@ -64,6 +64,7 @@ const ListPumpScreen = () => {
                                 disabled={false}
                                 value={checkedItems.some(checkedItem => checkedItem.PumpId === item.PumpId)}
                                 onValueChange={() => handleCheckboxChange(item)}
+                                tintColors={{ true: 'green', false: 'gray' }}
                             />
                         </TouchableOpacity>
                     )}

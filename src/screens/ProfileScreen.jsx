@@ -11,6 +11,9 @@ import { setClearPump } from '../redux/pump';
 
 const ProfileScreen = () => {
     const token = useSelector((state) => state.auth.token);
+    const user = useSelector((state) => state.auth.login.currentUser);
+    console.log(user)
+
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
@@ -36,13 +39,13 @@ const ProfileScreen = () => {
             </View>   
             <View style = {styles.name}>
                 <Text style={styles.TextName}>
-                    Nguyen Tat Minh
+                    {user.username}
                 </Text>
             </View>  
             <View>
-                <Text>
+                {/* <Text>
                     ID: 123456789
-                </Text>
+                </Text> */}
             </View> 
             <View style={styles.bottom}>
                 <TouchableWithoutFeedback onPress={handleLogin}>

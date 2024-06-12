@@ -6,7 +6,6 @@ import { COLORS, FONTSIZE } from "../theme/Theme";
 import { useDispatch, useSelector } from "react-redux";
 import { proxy } from "../signalr";
 import { formatAmount } from "../utils/TotalPrice";
-import { Constants } from "../constants/Constants";
 import moment from "moment";
 
 const HomeScreen = () => {
@@ -16,6 +15,8 @@ const HomeScreen = () => {
     
     const [logItem, setLogItem] =useState([]);
     const [selectedItem, setSelectedItem] = useState();
+    const [PumpName, setPumName] = useState();
+    // console.log(PumpName)
 
     let isPumpLogEventRegistered = false;
 
@@ -27,8 +28,9 @@ const HomeScreen = () => {
         return moment(dateTimeString).format('HH:mm:ss');
     }
 
-    const changePumpFocus = (oldPumpId, newPumpId) => {
+    const changePumpFocus = (oldPumpId, newPumpId, pumpName) => {
         setSelectedItem(newPumpId)
+        setPumName(pumpName)
         proxy.invoke('changePumpFocus', oldPumpId, newPumpId)
             .done(function () {
                 console.log('Successfully changed pump focus');
@@ -57,12 +59,12 @@ const HomeScreen = () => {
         }
     },[ListPumps?.length])
 
-    const handleInfoLog = (data) => {
+    const handleInfoLog = (data, pumpName) => {
         if(data.PaymentState == false){
-            navigation.navigate('InfoLog', { data: data });
+            navigation.navigate('InfoLog', {data, pumpName});
         }
         else {
-            navigation.navigate("Bill", {data: data})
+            navigation.navigate("Bill", {data, pumpName})
         }
     }
 
@@ -74,7 +76,7 @@ const HomeScreen = () => {
                 keyExtractor={(item, index) => index.toString()} 
                 renderItem={({ item }) => (
                     <View>
-                        <TouchableWithoutFeedback onPress={() => changePumpFocus( selectedItem, item.PumpId)}>
+                        <TouchableWithoutFeedback onPress={() => changePumpFocus( selectedItem, item.PumpId, item)}>
                             <View style={[styles.BoxPump]}>
                                 {selectedItem === item.PumpId ? (
                                     <Image
@@ -111,7 +113,7 @@ const HomeScreen = () => {
                 keyExtractor={(item, index) => index.toString()} 
                 renderItem={({ item }) => (
                     <View >
-                        <TouchableOpacity onPress={() => handleInfoLog(item)}>
+                        <TouchableOpacity onPress={() => handleInfoLog(item, PumpName)}>
                             <View style={styles.LogContainer}>
                                 <View style = {styles.bill}>
                                     <Image
@@ -179,19 +181,22 @@ const styles = StyleSheet.create({
         top: '50%',
         left: '50%',
         transform: [{ translateX: 12 }, { translateY: -5 }], 
-        fontWeight:"600"
+        fontWeight:"600",
+        color: COLORS.primaryBlackHex
     },
     text_idx: {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: [{ translateX: 8 }, { translateY: -5 }], 
-        fontWeight:"600"
+        fontWeight:"600",
+        color: COLORS.primaryBlackHex
     },
     text_type:{
         paddingTop:5,
         fontSize: FONTSIZE.size_12,
         fontWeight:"600",
+        color: COLORS.primaryBlackHex
     }  ,
     LogContainer:{
         paddingTop: 7,

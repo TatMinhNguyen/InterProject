@@ -1,5 +1,5 @@
-import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
-import React from 'react'
+import { Image, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import React, { useState } from 'react'
 import ComeBack from '../components/ComeBack';
 import { goBack } from '../utils/ComeBackHome';
 import { COLORS, FONTSIZE } from '../theme/Theme';
@@ -15,6 +15,10 @@ const ConfirmExport = () => {
     // console.log (dataLog.data.data.TxnId)
     // console.log("data", data)
 
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleConfirm = (data, dataLog) => {
         proxy
             .invoke("SendCreateEInvoice", dataLog.data.data.TxnId, {
@@ -26,9 +30,13 @@ const ConfirmExport = () => {
             })
             .done(() => {
                 console.log('Export successfully')
+                setModalMessage('Xuất hóa đơn thành công!');
+                setModalVisible(true);
             })
             .fail((e) => {
                 console.log('Error confirm export: ' + e)
+                setErrorMessage('Lỗi khi xuất hóa đơn: ' + e);
+                setModalVisible(false);
             });
     }
     return (
@@ -57,17 +65,44 @@ const ConfirmExport = () => {
                     </View>                
                 </TouchableWithoutFeedback> 
             </View>
+
+            {errorMessage ? (
+                <Text style={styles.errorText}>{errorMessage}</Text>
+            ) : null}
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>{modalMessage}</Text>
+                        <TouchableOpacity
+                            style={styles.closeButton}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={styles.closeButtonText}>Đóng</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
+        flex:1,
         backgroundColor: COLORS.primaryWhiteHex,
-        height: "100%"
+        // height: "100%"
     },
     body:{
-        marginBottom:"70%",
+        marginTop: 50,
+        marginBottom:"50%",
         marginLeft:5
     },
     headerBody:{
@@ -89,7 +124,51 @@ const styles = StyleSheet.create({
     },
     buton:{
         width: "80%",
-        marginTop:3
+        // marginTop:3
+    },
+
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)'
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
+        fontSize: 18,
+        color: COLORS.primaryBlackHex
+    },
+    closeButton: {
+        backgroundColor: COLORS.primaryBlueHex,
+        borderRadius: 5,
+        padding: 10,
+        elevation: 2
+    },
+    closeButtonText: {
+        color: COLORS.primaryWhiteHex,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    errorText: {
+        color: COLORS.primaryRedHex,
+        textAlign: 'center',
+        marginBottom: 20
     },
 })
 

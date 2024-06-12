@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { RadioButton } from 'react-native-paper';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import moment from 'moment';
 import { COLORS, FONTSIZE } from '../theme/Theme'
 import Bill from '../components/Bill'
@@ -10,8 +10,9 @@ import ButonDeny from '../components/ButonDeny';
 import { ComeBackHome } from '../utils/ComeBackHome';
 import { proxy } from '../signalr';
 
-const InfoLogScreen = ({ route }) => {
-  const data = route.params;
+const InfoLogScreen = () => {
+  const route = useRoute()
+  const { data, pumpName } = route.params;
   // console.log(data.data)
 
   const [checked, setChecked] = useState('first');
@@ -55,7 +56,7 @@ const InfoLogScreen = ({ route }) => {
           PaymentDate: currentTime,
         })
         .done(() => {
-          navigation.navigate("Bill", {data: data})
+          navigation.navigate("Bill", {data, pumpName})
           console.log('Successfully confirm payment');
         })
         .fail((e) => {
@@ -65,7 +66,7 @@ const InfoLogScreen = ({ route }) => {
   }
 
   const handlePayment = (data) => {
-    navigation.navigate("Payment", {data: data})
+    navigation.navigate("Payment", {data, pumpName})
   }
 
   return (
@@ -80,7 +81,8 @@ const InfoLogScreen = ({ route }) => {
         </Text>
       </View>
       <Bill 
-        data = {data.data}
+        data = {data}
+        pumpName={pumpName}
       />
       <View style = {styles.body}>
         <View style = {styles.bodyTitle}>
@@ -117,13 +119,13 @@ const InfoLogScreen = ({ route }) => {
       </View>
       <View style = {styles.footer}>
         {checked === 'first' ? (
-          <TouchableWithoutFeedback onPress={() =>handleComfirm(data.data)}>
+          <TouchableWithoutFeedback onPress={() =>handleComfirm(data)}>
             <View style={styles.buton}>
               <ButonComfirm buttonText="Xác nhận thanh toán"/>
             </View>                
           </TouchableWithoutFeedback>          
         ): (
-          <TouchableWithoutFeedback onPress={() =>handlePayment(data.data)}>
+          <TouchableWithoutFeedback onPress={() =>handlePayment(data)}>
             <View style={styles.buton}>
               <ButonComfirm buttonText="Thanh toán"/>
             </View>                
@@ -179,6 +181,7 @@ const styles = StyleSheet.create({
   },
   radioButtonText: {
     marginLeft: 15, 
+    color: COLORS.primaryBlackHex
   },
   footer:{
     marginTop:"auto",

@@ -4,8 +4,8 @@ import { Constants } from '../constants/Constants'
 import { TotalPrice, formatAmount } from '../utils/TotalPrice'
 import { COLORS, FONTSIZE } from '../theme/Theme'
 
-const Bill = ({data}) => {
-    // console.log(data.ProductCode)
+const Bill = ({data, pumpName}) => {
+    // console.log(pumpName)
   return (
     <View style = {styles.container}>
       <View style = {styles.left}>
@@ -24,13 +24,21 @@ const Bill = ({data}) => {
         <Text style={styles.textLeft}>
             {Constants.total_price} :
         </Text>
+        {data.ReceiptCode ? (
+        <Text style = {styles.textLeft}>
+            {Constants.ReceiptCode} :
+        </Text>            
+        ) : (
+            ''
+        )}
+
       </View>
       <View style = {styles.right}>
         <Text style = {styles.textRight}>
             {data.ProductCode}
         </Text>
         <Text style = {styles.textRight}>
-            {data.item}
+            {pumpName.ProductName}
         </Text>
         <Text style = {styles.textRight}>
             {data.Volume}{Constants.liters}
@@ -41,6 +49,13 @@ const Bill = ({data}) => {
         <Text style = {[styles.textRight , styles.totalText]}>
             {(formatAmount(data.Amount))} {Constants.currency_unit}
         </Text>
+        {data.ReceiptCode ? (
+            <Text style = {styles.textRight}>
+                {data.ReceiptCode}
+            </Text>
+            ) : (
+                ''
+            )}
       </View>
     </View>
   )

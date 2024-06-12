@@ -16,5 +16,6 @@ export const Constants = {
     note1: 'Quét mã QR bằng ứng dụng ngân hàng ',
     note2: 'hoặc ví điện tử để thanh toán',
     note3: 'Chưa thanh toán thành công.',
-    note4:'Vui lòng thanh toán trước khi thực hiện.'
+    note4:'Vui lòng thanh toán trước khi thực hiện.',
+    ReceiptCode: 'Mã tra cứu hóa đơn'
 }

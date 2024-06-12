@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
         paddingTop: 50
     },
     input: {
+        color: COLORS.primaryBlackHex,
         width: '100%',
         height: 50,
         borderWidth: 1,
