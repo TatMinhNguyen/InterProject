@@ -13,7 +13,7 @@ import { proxy } from '../signalr';
 
 const PaymentScreen = ({ route }) => {
     const data = route.params;
-    // console.log(data)
+    // console.log(data.data)
     // const paymentInfo = PaymentCode; 
 
     const navigation = useNavigation();
@@ -72,7 +72,7 @@ const PaymentScreen = ({ route }) => {
           </View>        
           <View style = {styles.QRCode}>
             <QRCode
-              value={data.QrContent}
+              value={data.data.QrContent}
               size={0.3 * Dimensions.get('window').height}
             />          
           </View>
