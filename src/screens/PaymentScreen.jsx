@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Text, Dimensions } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import ComeBack from '../components/ComeBack';
 import { ComeBackHome, goBack } from '../utils/ComeBackHome';
 import ButonComfirm from '../components/ButonComfirm';
@@ -11,8 +11,9 @@ import { Constants } from '../constants/Constants';
 import moment from 'moment';
 import { proxy } from '../signalr';
 
-const PaymentScreen = ({ route }) => {
-    const data = route.params;
+const PaymentScreen = () => {
+    const route = useRoute();
+    const { data, pumpName } = route.params;
     // console.log(data.data)
     // const paymentInfo = PaymentCode; 
 
@@ -55,7 +56,7 @@ const PaymentScreen = ({ route }) => {
           PaymentDate: currentTime,
         })
         .done(() => {
-          navigation.navigate("Bill", {data: data})
+          navigation.navigate("Bill", {data, pumpName})
           console.log('Successfully confirm payment');
         })
         .fail((e) => {
@@ -68,11 +69,11 @@ const PaymentScreen = ({ route }) => {
         <ComeBack comeback={goBack}/>
         <View style = {styles.body}>
           <View>
-            <PaymentInfo data = {data.data}/>
+            <PaymentInfo data = {data}/>
           </View>        
           <View style = {styles.QRCode}>
             <QRCode
-              value={data.data.QrContent}
+              value={data.QrContent}
               size={0.3 * Dimensions.get('window').height}
             />          
           </View>
@@ -86,7 +87,7 @@ const PaymentScreen = ({ route }) => {
                 {Constants.note2}  
               </Text>           
             </View>            
-              <TouchableWithoutFeedback onPress={() =>handleComfirm(data.data)}>
+              <TouchableWithoutFeedback onPress={() =>handleComfirm(data)}>
                 <View style={styles.buton}>
                   <ButonComfirm buttonText="Kiểm tra kết quả thanh toán"/>
                 </View>                

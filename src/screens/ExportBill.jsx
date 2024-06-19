@@ -3,23 +3,25 @@ import React, { useState } from 'react'
 import ComeBack from '../components/ComeBack'
 import { ComeBackHome, goBack } from '../utils/ComeBackHome'
 import { COLORS, FONTSIZE } from '../theme/Theme'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { DataMT } from '../data/LogInfoData'
 import { removeSpecialCharacters } from '../utils/TotalPrice'
 import { Receipt } from '../api/receipt/Receipt'
 import { useSelector } from 'react-redux'
 
-const ExportBill = ({ route }) => {
-    const dataLog = route.params;
+const ExportBill = () => {
+    const route = useRoute();
+    const { dataLog, pumpName } = route.params;
+    // console.log(dataLog)
     const accessToken = useSelector((state) =>state.auth.token)
 
     const navigation = useNavigation();
 
     const [search, setSearch] = useState('')
-    const [data, setData] = useState([]);
+    const [datas, setData] = useState([]);
 
     const handleExportBill = (data, dataLog) =>{
-        navigation.navigate("Confirm-Export", { data, dataLog })
+        navigation.navigate("Confirm-Export", { data, dataLog, pumpName })
     }
 
     const handleSearch = async() => {
@@ -62,7 +64,7 @@ const ExportBill = ({ route }) => {
             </View> 
             <View style={styles.body}>
                 <FlatList
-                    data={data}
+                    data={datas}
                     keyExtractor={(item, index) => index.toString()} 
                     renderItem={({ item }) =>(
                         <TouchableWithoutFeedback onPress = {() => handleExportBill(item, dataLog)}>

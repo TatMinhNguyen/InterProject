@@ -1,27 +1,35 @@
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useState } from 'react'
 import ComeBack from '../components/ComeBack';
-import { goBack } from '../utils/ComeBackHome';
+import { ComeBackHome, goBack } from '../utils/ComeBackHome';
 import { COLORS, FONTSIZE } from '../theme/Theme';
 import CompanyInformation from '../components/CompanyInformation';
 import ButonComfirm from '../components/ButonComfirm';
 import { proxy } from '../signalr';
 import { removeSpecialCharacters } from '../utils/TotalPrice';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const ConfirmExport = () => {
     const route = useRoute();
-    const { data, dataLog } = route.params;
-    // console.log (dataLog.data.data.TxnId)
-    // console.log("data", data)
+    const { data, dataLog, pumpName } = route.params;
+    // console.log (dataLog)
+    // console.log(pumpName)
+    // console.log(data)
+
+    const navigation = useNavigation()
 
     const [modalVisible, setModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    const handleCheckBill = (data) => {
+        setModalVisible(false)
+        ComeBackHome()
+    }
+
     const handleConfirm = (data, dataLog) => {
         proxy
-            .invoke("SendCreateEInvoice", dataLog.data.data.TxnId, {
+            .invoke("SendCreateEInvoice", dataLog.TxnId, {
                 Taxnumber: removeSpecialCharacters(data.mst),
                 OrgName: data.name,
                 name: data.name,
@@ -83,7 +91,7 @@ const ConfirmExport = () => {
                         <Text style={styles.modalText}>{modalMessage}</Text>
                         <TouchableOpacity
                             style={styles.closeButton}
-                            onPress={() => setModalVisible(false)}
+                            onPress={() => handleCheckBill(dataLog)}
                         >
                             <Text style={styles.closeButtonText}>Đóng</Text>
                         </TouchableOpacity>
@@ -120,7 +128,7 @@ const styles = StyleSheet.create({
     footer:{
         marginTop:"auto",
         alignItems:"center",
-        marginBottom:"15%"
+        marginBottom:"10%"
     },
     buton:{
         width: "80%",

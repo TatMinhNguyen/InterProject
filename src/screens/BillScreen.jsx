@@ -10,12 +10,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 const BillScreen = () => {
     const route = useRoute();
     const { data, pumpName } = route.params;
-    console.log(pumpName)
+    // console.log(data)
 
     const navigation = useNavigation();
 
-    const handleExport = (data) =>{
-        navigation.navigate('Export', {data: data})
+    const handleExport = (dataLog) =>{
+        navigation.navigate('Export', {dataLog, pumpName})
     }
 
     return (
@@ -50,11 +50,15 @@ const BillScreen = () => {
             </View>            
         </View>
         <View style = {styles.footer}>
-            <TouchableWithoutFeedback onPress={()=>handleExport(data)}>
-                <View style={styles.buton}>
-                    <ButonComfirm buttonText = "Xuất hóa đơn"/>
-                </View>                
-            </TouchableWithoutFeedback>
+            {data.ReceiptCode ? (
+                ''
+            ):(
+                <TouchableWithoutFeedback onPress={()=>handleExport(data)}>
+                    <View style={styles.buton}>
+                        <ButonComfirm buttonText = "Xuất hóa đơn"/>
+                    </View>                
+                </TouchableWithoutFeedback>
+            )}
             <TouchableWithoutFeedback onPress={ComeBackHome}>
                 <View style={styles.buton}>
                     <ButonDeny buttonText = "Trở về trang chủ"/>
