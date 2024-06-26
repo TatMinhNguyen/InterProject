@@ -36,8 +36,8 @@ const LoginScreen = () => {
         try {
             await Login(user,dispatch);
             
-            setUsername('');
-            setPassword('');
+            // setUsername('');
+            // setPassword('');
             // console.log(result.accessToken)
             // console.log("Login success")
         } catch (error) {

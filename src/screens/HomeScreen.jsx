@@ -90,11 +90,11 @@ const HomeScreen = () => {
                                     />
                                 )}
                                 <Text style={[
-                                    item.PumpName.split(' ')[2].length === 1 && styles.text_id,
-                                    item.PumpName.split(' ')[2].length === 2 && styles.text_idx,
+                                    item.PumpName.split(' ')[1].length === 1 && styles.text_id,
+                                    item.PumpName.split(' ')[1].length === 2 && styles.text_idx,
                                     selectedItem === item.PumpId && styles.selectedItem,
                                 ]}>
-                                    {item.PumpName.split(' ')[2]}
+                                    {item.PumpName.split(' ')[1]}
                                 </Text>
                                 <Text style={[styles.text_type, selectedItem === item.PumpId && styles.selectedItem]}>
                                     {item.ProductName}

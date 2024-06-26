@@ -42,8 +42,8 @@ const ConfirmExport = () => {
                 setModalVisible(true);
             })
             .fail((e) => {
-                console.log('Error confirm export: ' + e)
-                setErrorMessage('Lỗi khi xuất hóa đơn: ' + e);
+                console.log('Error confirm export: ' + e.message)
+                setErrorMessage('Lỗi khi xuất hóa đơn: '+ e.message);
                 setModalVisible(false);
             });
     }
